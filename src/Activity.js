@@ -17,7 +17,32 @@ library.add(fas)
 
 export default function Activity({activity_data}) {
 
+    const calcDisabledState = () => {
+        const d = new Date();
+        let hour = d.getHours();
+        if (!activity_data.limits)
+            return false;
+
+        let is_disabled = true;
+        activity_data.limits.map((limit) => {
+            if (limit.active_hours.includes(hour))
+                is_disabled = false;
+            return undefined;
+        });
+
+        return is_disabled;
+    };
+
     const [open, setOpen] = React.useState(false);
+    const [disabledState, setDisabledState] = React.useState(calcDisabledState());
+
+    React.useEffect(() => {
+        setInterval(
+            () => {
+                // check active hours
+                setDisabledState(calcDisabledState());
+            }, 5000);
+    });
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -28,7 +53,7 @@ export default function Activity({activity_data}) {
     };
   
     return (
-    <div className={"activity " + (activity_data.disabled ? 'disabled' : 'enabled')}>
+    <div className={"activity " + (disabledState ? 'disabled' : 'enabled')}>
         <div><FontAwesomeIcon className='icon' icon={activity_data.icon} /></div>
         <div></div>
         <div className='name-container'>
