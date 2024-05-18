@@ -34,6 +34,7 @@ export default function Activity({activity_data}) {
     };
 
     const [open, setOpen] = React.useState(false);
+    const [openAddPoints, setOpenAddPoints] = React.useState(false);
     const [disabledState, setDisabledState] = React.useState(calcDisabledState());
 
     React.useEffect(() => {
@@ -51,14 +52,30 @@ export default function Activity({activity_data}) {
     const handleClose = () => {
       setOpen(false);
     };
+    
+    const handleCloseAddPoints = () => {
+        setOpenAddPoints(false);   
+    };
+
+    const handleCloseAddPointsYES = () => {
+        const server = process.env.REACT_APP_BACKEND ?? "localhost:3001";
+        console.log(server);
+        setOpenAddPoints(false);   
+    };
+
+    const handleClickActivity = () => {
+        if (disabledState)
+            return;
+        setOpenAddPoints(true);
+    };
   
     return (
     <div className={"activity " + (disabledState ? 'disabled' : 'enabled')}>
-        <div><FontAwesomeIcon className='icon' icon={activity_data.icon} /></div>
+        <div><FontAwesomeIcon className='icon' icon={activity_data.icon} onClick={handleClickActivity} /></div>
         <div></div>
         <div className='name-container'>
-            <div className='name'>{activity_data.name}</div>
-            <div>points: {activity_data.amount}</div>
+            <div className='name' onClick={handleClickActivity}>{activity_data.name}</div>
+            <div onClick={handleClickActivity}>points: {activity_data.amount}</div>
         </div>
         <div className='help'>
             <IconButton onClick={handleClickOpen}>
@@ -84,5 +101,26 @@ export default function Activity({activity_data}) {
           <Button onClick={handleClose}>OK</Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+            open={openAddPoints}
+            onClose={handleCloseAddPoints}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+          {activity_data.help_caption}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Do you want to add points for this activity?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseAddPointsYES}>YES</Button>
+          <Button onClick={handleCloseAddPoints}>NO</Button>
+        </DialogActions>
+      </Dialog>
+
     </div>);
 }
