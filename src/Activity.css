@@ -1,0 +1,37 @@
+.activity .name {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.activity .icon {
+    width: 4rem;
+    height: 4rem;
+}
+
+.activity {
+    display: grid;
+    grid-template-columns: 4.3rem 0.2rem 10rem;
+}
+
+.activity {
+    font-size: 1rem;
+    margin-block-start: 0.5rem;
+}
+
+.activity.enabled {
+    cursor: pointer;
+}
+
+.activity .name-container {
+    display: grid;
+    grid-template-columns: 10 rem;
+    text-align: left;
+}
+
+.activity.enabled:hover {
+    color: greenyellow;
+}
+
+.activity.disabled {
+    color: gray;
+}

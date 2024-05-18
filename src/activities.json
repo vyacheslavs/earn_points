@@ -1,5 +1,7 @@
 {
     "activities": [
-        {"name": "Brush teeth", "amount": 7}
+        {"name": "Brush teeth", "amount": 7, "icon": "fa-solid fa-tooth", "disabled": false},
+        {"name": "Math", "amount": 15, "icon":"fa-solid fa-calculator", "disabled": false},
+        {"name": "Dishes", "amount": 4, "icon":"fa-solid fa-bowl-food", "disabled": false}
     ]
 }

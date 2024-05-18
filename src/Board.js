@@ -6,7 +6,7 @@ export default function Board() {
         return (
             <>
             {data.activities.map((item, index) => (
-                <Activity name={item.name} amount={item.amount}></Activity>))}
+                <Activity key={index} name={item.name} amount={item.amount} icon={item.icon} disabled={item.disabled}></Activity>))}
             </>
         );
 }
