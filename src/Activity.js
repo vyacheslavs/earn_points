@@ -12,37 +12,74 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import sha256 from 'js-sha256';
 
 library.add(fas)
+const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
 
 export default function Activity({activity_data}) {
 
-    const calcDisabledState = () => {
+    const findActiveLimit = () => {
+        var active_limit = {};
+        if (!activity_data.limits)
+            return active_limit;
         const d = new Date();
         let hour = d.getHours();
-        if (!activity_data.limits)
-            return false;
-
-        let is_disabled = true;
+        
         activity_data.limits.map((limit) => {
             if (limit.active_hours.includes(hour))
-                is_disabled = false;
+                active_limit = limit;
             return undefined;
         });
 
-        return is_disabled;
+        return active_limit;
+    };
+
+    const calcDisabledState = async () => {
+        if (!activity_data.limits)
+            return false;
+
+        const activeLimit = findActiveLimit();
+        if (!activeLimit.active_hours)
+            return true;
+
+        // check hits
+        const limit_val = {"limits": activeLimit,  "day": new Date().toISOString().slice(0, 10), "name": activity_data.name};
+        const limit_hash = sha256(JSON.stringify(limit_val));
+
+        try {
+            const response = await axios.get(server + '/limithits/' + limit_hash, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+    
+                if (response.data.success && response.data.hits >= activeLimit.limit) {
+                    return true;
+                }
+        } catch (error) {
+            console.error('There was an error getting the data!', error);
+            return true;
+        }
+
+        return false;
     };
 
     const [open, setOpen] = React.useState(false);
     const [openAddPoints, setOpenAddPoints] = React.useState(false);
-    const [disabledState, setDisabledState] = React.useState(calcDisabledState());
+    const [disabledState, setDisabledState] = React.useState(true);
 
     React.useEffect(() => {
         setInterval(
-            () => {
+            async () => {
                 // check active hours
-                setDisabledState(calcDisabledState());
-            }, 5000);
+                setDisabledState(await calcDisabledState());
+            }, 30000);
+
+        setTimeout( async() => {
+            setDisabledState(await calcDisabledState());
+        }, 0);
     });
 
     const handleClickOpen = () => {
@@ -57,10 +94,26 @@ export default function Activity({activity_data}) {
         setOpenAddPoints(false);   
     };
 
-    const handleCloseAddPointsYES = () => {
-        const server = process.env.REACT_APP_BACKEND ?? "localhost:3001";
-        console.log(server);
-        setOpenAddPoints(false);   
+    const handleCloseAddPointsYES = async () => {
+        setOpenAddPoints(false);
+
+        try {
+            const activeLimit = findActiveLimit();
+            const data = {"name": activity_data.name, "amount": activity_data.amount, "limits": activeLimit};
+
+            // now find current limit
+            const response = await axios.post(server + '/addpoints', data, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.data.success) {
+                setDisabledState(calcDisabledState());
+            }
+          } catch (error) {
+            console.error('There was an error posting the data!', error);
+          }
     };
 
     const handleClickActivity = () => {
