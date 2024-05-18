@@ -1,7 +1,7 @@
 {
     "activities": [
-        {"name": "Brush teeth", "amount": 7, "icon": "fa-solid fa-tooth", "disabled": false},
-        {"name": "Math", "amount": 15, "icon":"fa-solid fa-calculator", "disabled": false},
-        {"name": "Dishes", "amount": 4, "icon":"fa-solid fa-bowl-food", "disabled": false}
+        {"name": "Brush teeth", "amount": 7, "icon": "fa-solid fa-tooth", "disabled": false, "help_caption": "Brush your teeth", "help": "You can get points for brushing your teeth only 2 times a day (morning from 7am to 9am and evening from 7pm to 10pm)"},
+        {"name": "Math", "amount": 15, "icon":"fa-solid fa-calculator", "disabled": false, "help_caption":"Do your math", "help": "Ask dad to provide you math sheets. You can earn points twice a day"},
+        {"name": "Dishes", "amount": 4, "icon":"fa-solid fa-bowl-food", "disabled": false, "help_caption":"Do the dishes", "help": "Help parents with dishes and be rewarded by points. No limitation for this type of activity"}
     ]
 }

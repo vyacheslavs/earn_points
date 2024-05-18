@@ -35,3 +35,8 @@
 .activity.disabled {
     color: gray;
 }
+
+.activity .help {
+    position: relative;
+    top: -3rem;
+}
