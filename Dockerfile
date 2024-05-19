@@ -4,6 +4,7 @@ RUN mkdir -p /src
 WORKDIR /src
 COPY . .
 
+RUN echo "REACT_APP_BACKEND=" > /src/.env
 RUN npm ci
 RUN npm run build
 
