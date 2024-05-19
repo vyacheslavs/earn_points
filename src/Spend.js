@@ -49,7 +49,7 @@ export default function Spend() {
             return response.data;
         } catch (error) {
             console.error('There was an error getting the data!', error);
-            setErrorMsg(error);
+            setErrorMsg(error.message);
             handleClickOpen();
             return {};
         }
