@@ -6,17 +6,21 @@ import './SpendActivity.css';
 
 library.add(fas)
 
-export default function SpendActivity(activity) {
-    const act = activity.activity;
+export default function SpendActivity(props) {
+    const {activity, setActivity} = props;
+    const onAct = () => {
+        setActivity(activity.amount, activity.description);
+    };
+
     return (
-        <div className='spendactivity'>
+        <div className='spendactivity' onClick={onAct}>
             <div className='internals'>
                 <div className='cols'>
-                    <FontAwesomeIcon className='icon' icon={act.icon} />
+                    <FontAwesomeIcon className='icon' icon={activity.icon} />
                     <div className='spendinfo'>
-                        <div className='name'>{act.name}</div>
-                        <div className='amount'>{'points: ' + act.amount}</div>
-                        <div className='desc'>{act.description}</div>
+                        <div className='name'>{activity.name}</div>
+                        <div className='amount'>{'points: ' + activity.amount}</div>
+                        <div className='desc'>{activity.description}</div>
                     </div>
                 </div>
             </div>
