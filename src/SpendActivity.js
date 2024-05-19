@@ -10,7 +10,17 @@ export default function SpendActivity(activity) {
     const act = activity.activity;
     return (
         <div className='spendactivity'>
-            <FontAwesomeIcon className='icon' icon={act.icon} />
+            <div className='internals'>
+                <div className='cols'>
+                    <FontAwesomeIcon className='icon' icon={act.icon} />
+                    <div className='spendinfo'>
+                        <div className='name'>{act.name}</div>
+                        <div className='amount'>{'points: ' + act.amount}</div>
+                        <div className='desc'>{act.description}</div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     );
 }

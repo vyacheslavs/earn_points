@@ -74,8 +74,7 @@ export default function Activity({activity_data}) {
     const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
 
     React.useEffect(() => {
-
-      setInterval(
+      let interval = setInterval(
         async () => {
             // check active hours
             setDisabledState(await calcDisabledState());
@@ -85,6 +84,9 @@ export default function Activity({activity_data}) {
         setDisabledState(await calcDisabledState());
       }
       updateDisableState();
+      return () => {
+        clearInterval(interval);
+      };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

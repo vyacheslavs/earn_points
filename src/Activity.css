@@ -24,7 +24,7 @@
 
 .activity .name-container {
     display: grid;
-    grid-template-columns: 10 rem;
+    grid-template-columns: 10rem;
     text-align: left;
 }
 

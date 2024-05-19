@@ -3,3 +3,34 @@
     width: 4rem;
     height: 4rem;
 }
+
+.spendactivity .cols {
+    display: flex;
+    flex-direction: row;
+}
+
+.spendactivity .name {
+    font-size: 1.5rem;
+    color: #282c34;
+}
+
+.spendactivity .desc {
+    font-size: 1rem;
+    color: #282c34;
+}
+
+.spendactivity .spendinfo {
+    padding-left: 0.5rem;
+    text-align: left;
+}
+
+.spendactivity .amount {
+    color: #282c34;
+    font-size: 0.8rem;
+}
+
+.spendactivity {
+    min-width: 14rem;
+    max-width: 15rem;
+    cursor: pointer;
+}
