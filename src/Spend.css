@@ -1,0 +1,19 @@
+.forms {
+    display: flex;
+    flex-direction: column;
+}
+
+.forms .control {
+    margin-block-start: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.forms .control .MuiTextField-root {
+    width: 100%;
+}
+
+.forms .control .MuiBox-root {
+    width: 100%;
+}

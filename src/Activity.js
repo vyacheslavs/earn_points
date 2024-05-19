@@ -74,16 +74,19 @@ export default function Activity({activity_data}) {
     const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
 
     React.useEffect(() => {
-        setInterval(
-            async () => {
-                // check active hours
-                setDisabledState(await calcDisabledState());
-            }, 30000);
 
-        setTimeout( async() => {
+      setInterval(
+        async () => {
+            // check active hours
             setDisabledState(await calcDisabledState());
-        }, 0);
-    });
+        }, 30000);
+
+      async function updateDisableState() {
+        setDisabledState(await calcDisabledState());
+      }
+      updateDisableState();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleClickOpen = () => {
       setOpen(true);

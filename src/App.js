@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Spend from './Spend.js';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +59,7 @@ function App() {
     async function load() {
         const data = await updateBoardContext();
         setHistoryBoardData(data);
-    }    
+    }
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
@@ -71,17 +72,21 @@ function App() {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label={'Total points: ' + historyBoardData.total_points} {...a11yProps(0)} />
-              <Tab label="History" {...a11yProps(1)} />
+              <Tab label="Spend" {...a11yProps(1)} />
+              <Tab label="History" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
             <Box sx={{ backgroundColor: '#282c34',  borderRadius: 2, p: 2}}>
               <div className='board-container'>
-                <Board></Board>
+                <Board/>
               </div>
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
+            <Spend />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
             <HistoryBoard />
           </CustomTabPanel>
         </Box>
