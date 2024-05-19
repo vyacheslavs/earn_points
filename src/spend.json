@@ -2,7 +2,10 @@
     "activities": [
         {"icon": "fa-solid fa-gamepad", "name": "800 ROBUX", "amount": 120, "description": "Spend points on 800 Robux"},
         {"icon": "fa-solid fa-shapes", "name": "Toy", "amount": 50, "description": "Spend points on any toy/art etc"},
-        {"icon":"fa-solid fa-burger", "name": "McDonalds", "amount": 50, "description": "Spend points on McDonalds"},
-        {"icon":"fa-solid fa-film", "name": "Movie", "amount": 50, "description": "Spend points on Movie"}
+        {"icon": "fa-solid fa-burger", "name": "McDonalds", "amount": 50, "description": "Spend points on McDonalds"},
+        {"icon": "fa-solid fa-film", "name": "Movie", "amount": 50, "description": "Spend points on Movie"},
+        {"icon": "fa-solid fa-user-group", "name":"Friend invite", "amount": 50, "description":"Spend some time with friends come over"},
+        {"icon": "fa-solid fa-person-swimming", "name": "Pool", "amount": 55, "description": "Splash into the pool and waves"},
+        {"icon": "fa-solid fa-bed", "name": "Sleep over", "amount": 150, "description": "Invite your friend for sleep over"}
     ]
 }

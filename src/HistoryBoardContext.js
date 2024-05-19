@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext } from 'react';
 import axios from 'axios';
 import './HistoryBoard.css';
 
@@ -6,7 +6,7 @@ const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
 
 export const HistoryBoardContext = createContext({"total_points": 0});
 
-const updateBoardContext = async (setter) => {
+const updateBoardContext = async () => {
     
     try {
         const response = await axios.get(server + '/history', {
