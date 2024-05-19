@@ -8,7 +8,7 @@
     height: 4rem;
 }
 
-.activity {
+.activity .internals{
     display: grid;
     grid-template-columns: 4.3rem 0.2rem 10rem;
 }
@@ -39,4 +39,5 @@
 .activity .help {
     position: relative;
     top: -3rem;
+    left: -5rem;
 }

@@ -124,11 +124,13 @@ export default function Activity({activity_data}) {
   
     return (
     <div className={"activity " + (disabledState ? 'disabled' : 'enabled')}>
-        <div><FontAwesomeIcon className='icon' icon={activity_data.icon} onClick={handleClickActivity} /></div>
-        <div></div>
-        <div className='name-container'>
-            <div className='name' onClick={handleClickActivity}>{activity_data.name}</div>
-            <div onClick={handleClickActivity}>points: {activity_data.amount}</div>
+        <div className='internals'>
+          <div><FontAwesomeIcon className='icon' icon={activity_data.icon} onClick={handleClickActivity} /></div>
+          <div></div>
+          <div className='name-container'>
+              <div className='name' onClick={handleClickActivity}>{activity_data.name}</div>
+              <div onClick={handleClickActivity}>points: {activity_data.amount}</div>
+          </div>
         </div>
         <div className='help'>
             <IconButton onClick={handleClickOpen}>
