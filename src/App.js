@@ -4,11 +4,11 @@ import './App.css';
 import Board from './Board.js';
 import HistoryBoard from './HistoryBoard.js';
 import { HistoryBoardContext } from './HistoryBoardContext';
+import { updateBoardContext } from './HistoryBoardContext';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { updateBoardContext } from './HistoryBoardContext';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;

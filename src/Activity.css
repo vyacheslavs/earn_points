@@ -40,4 +40,9 @@
     position: relative;
     top: -3rem;
     left: -5rem;
+    display: inline-block;
+}
+
+.activity.enabled .help svg{
+    color: green;
 }

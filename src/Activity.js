@@ -14,6 +14,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import sha256 from 'js-sha256';
+import { HistoryBoardContext } from './HistoryBoardContext';
+import { updateBoardContext } from './HistoryBoardContext';
 
 library.add(fas)
 const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
@@ -69,6 +71,7 @@ export default function Activity({activity_data}) {
     const [open, setOpen] = React.useState(false);
     const [openAddPoints, setOpenAddPoints] = React.useState(false);
     const [disabledState, setDisabledState] = React.useState(true);
+    const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
 
     React.useEffect(() => {
         setInterval(
@@ -110,6 +113,8 @@ export default function Activity({activity_data}) {
 
             if (response.data.success) {
                 setDisabledState(calcDisabledState());
+                const newHist = await updateBoardContext();
+                setHistoryBoardData(newHist);
             }
           } catch (error) {
             console.error('There was an error posting the data!', error);
@@ -127,9 +132,9 @@ export default function Activity({activity_data}) {
         <div className='internals'>
           <div><FontAwesomeIcon className='icon' icon={activity_data.icon} onClick={handleClickActivity} /></div>
           <div></div>
-          <div className='name-container'>
-              <div className='name' onClick={handleClickActivity}>{activity_data.name}</div>
-              <div onClick={handleClickActivity}>points: {activity_data.amount}</div>
+          <div className='name-container' onClick={handleClickActivity}>
+              <div className='name' >{activity_data.name}</div>
+              <div>points: {activity_data.amount}</div>
           </div>
         </div>
         <div className='help'>
