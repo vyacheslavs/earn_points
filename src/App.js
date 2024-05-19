@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { updateBoardContext } from './HistoryBoardContext';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,6 +52,16 @@ function App() {
   };
 
   const [historyBoardData, setHistoryBoardData] = React.useState({"total_points": 0});
+
+  // load history
+  React.useEffect(() => {
+    async function load() {
+        const data = await updateBoardContext();
+        setHistoryBoardData(data);
+    }    
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   return (
     <HistoryBoardContext.Provider value={{historyBoardData, setHistoryBoardData}}>
