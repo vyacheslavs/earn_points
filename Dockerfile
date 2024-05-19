@@ -15,8 +15,10 @@ RUN npm run build
 FROM node:18.16.1-alpine
 
 RUN mkdir -p /app/www
+RUN mkdir -p /app/data
 
 COPY --from=builder /src/build/ /app/www/
+COPY --from=builder /src/backend/src/points.json /app/points.json.template
 COPY --from=builder /src/backend/build/ /app/
 COPY --from=builder /src/entrypoint.sh /app/
 
