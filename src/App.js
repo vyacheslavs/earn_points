@@ -10,6 +10,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Spend from './Spend.js';
+import { Notifications } from './notifications';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,6 +69,7 @@ function App() {
     <HistoryBoardContext.Provider value={{historyBoardData, setHistoryBoardData}}>
     <div className="App">
       <header className="App-header">
+        <Notifications />
         <Box sx={{ width: '100%', height: '100%', bgcolor: 'background.paper' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">

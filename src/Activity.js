@@ -16,6 +16,7 @@ import axios from 'axios';
 import sha256 from 'js-sha256';
 import { HistoryBoardContext } from './HistoryBoardContext';
 import { updateBoardContext } from './HistoryBoardContext';
+import addNotification from './notifications';
 
 library.add(fas)
 const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
@@ -74,10 +75,24 @@ export default function Activity({activity_data}) {
     const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
 
     React.useEffect(() => {
+      
+      console.log("install interval!");
       let interval = setInterval(
         async () => {
-            // check active hours
-            setDisabledState(await calcDisabledState());
+          const previouslyDisabled = disabledState;
+          // check active hours
+          setDisabledState(await calcDisabledState());
+          if (previouslyDisabled && !disabledState) {
+            console.log('addNotification');
+            addNotification({
+              title: activity_data.name,
+              subtitle: 'New activity available for ' + activity_data.amount + ' points',
+              message: activity_data.help,
+              theme: 'darkblue',
+              native: true // when using native, your OS will handle theming.
+          });
+        
+          }
         }, 30000);
 
       async function updateDisableState() {
@@ -85,6 +100,7 @@ export default function Activity({activity_data}) {
       }
       updateDisableState();
       return () => {
+        console.log('clear interval');
         clearInterval(interval);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
