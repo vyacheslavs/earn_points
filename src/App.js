@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Spend from './Spend.js';
 import TabWithCaption from './TabWithCaption.js';
+import BonusPointsBoard from './BonusPointsBoard.js';
 
 updateBoardContext().then(data => historyBoard.value = data);
 
@@ -68,6 +69,7 @@ function App() {
                 <Board/>
               </div>
             </Box>
+            <BonusPointsBoard />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
             <Spend />
