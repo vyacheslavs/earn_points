@@ -71,36 +71,40 @@ export default function Activity({activity_data}) {
 
     const [open, setOpen] = React.useState(false);
     const [openAddPoints, setOpenAddPoints] = React.useState(false);
-    const [disabledState, setDisabledState] = React.useState(true);
+    const [disabledState, setDisabledState] = React.useState(false);
     const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
 
+    const setDisableStateWrapper = (newstate) => {
+      localStorage.setItem(activity_data.name, newstate.toString());
+      setDisabledState(newstate);
+    };
+
     React.useEffect(() => {
-      
-      console.log("install interval!");
       let interval = setInterval(
         async () => {
-          const previouslyDisabled = disabledState;
+
+          const previouslyDisabled = (localStorage.getItem(activity_data.name) === 'true');
           // check active hours
-          setDisabledState(await calcDisabledState());
-          if (previouslyDisabled && !disabledState) {
-            console.log('addNotification');
+          const nowDisabled = await calcDisabledState();
+          if (previouslyDisabled && nowDisabled === false) {
             addNotification({
               title: activity_data.name,
               subtitle: 'New activity available for ' + activity_data.amount + ' points',
               message: activity_data.help,
+              duration: 30000,
               theme: 'darkblue',
               native: true // when using native, your OS will handle theming.
           });
-        
           }
+
+          setDisableStateWrapper(nowDisabled);
         }, 30000);
 
       async function updateDisableState() {
-        setDisabledState(await calcDisabledState());
+        setDisableStateWrapper(await calcDisabledState());
       }
       updateDisableState();
       return () => {
-        console.log('clear interval');
         clearInterval(interval);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,7 +137,7 @@ export default function Activity({activity_data}) {
             });
 
             if (response.data.success) {
-                setDisabledState(calcDisabledState());
+                setDisableStateWrapper(calcDisabledState());
                 const newHist = await updateBoardContext();
                 setHistoryBoardData(newHist);
             }
