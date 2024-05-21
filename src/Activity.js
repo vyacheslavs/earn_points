@@ -14,14 +14,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import sha256 from 'js-sha256';
-import { HistoryBoardContext } from './HistoryBoardContext';
-import { updateBoardContext } from './HistoryBoardContext';
+import {historyBoard, updateBoardContext} from './HistoryBoardContext';
+import { useSignals } from '@preact/signals-react/runtime';
 
 library.add(fas)
 const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
 
 export default function Activity({activity_data}) {
 
+    useSignals();
     const findActiveLimit = () => {
         var active_limit = {};
         if (!activity_data.limits)
@@ -71,7 +72,6 @@ export default function Activity({activity_data}) {
     const [open, setOpen] = React.useState(false);
     const [openAddPoints, setOpenAddPoints] = React.useState(false);
     const [disabledState, setDisabledState] = React.useState(true);
-    const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
 
     React.useEffect(() => {
       let interval = setInterval(
@@ -119,7 +119,7 @@ export default function Activity({activity_data}) {
             if (response.data.success) {
                 setDisabledState(calcDisabledState());
                 const newHist = await updateBoardContext();
-                setHistoryBoardData(newHist);
+                historyBoard.value = newHist;
             }
           } catch (error) {
             console.error('There was an error posting the data!', error);

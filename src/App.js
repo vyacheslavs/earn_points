@@ -1,15 +1,16 @@
 import * as React from 'react';
-
 import './App.css';
 import Board from './Board.js';
 import HistoryBoard from './HistoryBoard.js';
-import { HistoryBoardContext } from './HistoryBoardContext';
-import { updateBoardContext } from './HistoryBoardContext';
+import { historyBoard, updateBoardContext } from './HistoryBoardContext';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Spend from './Spend.js';
+import TabWithCaption from './TabWithCaption.js';
+
+updateBoardContext().then(data => historyBoard.value = data);
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,33 +46,18 @@ function a11yProps(index) {
 }
 
 function App() {
-
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const [historyBoardData, setHistoryBoardData] = React.useState({"total_points": 0});
-
-  // load history
-  React.useEffect(() => {
-    async function load() {
-        const data = await updateBoardContext();
-        setHistoryBoardData(data);
-    }
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
   return (
-    <HistoryBoardContext.Provider value={{historyBoardData, setHistoryBoardData}}>
     <div className="App">
       <header className="App-header">
         <Box sx={{ width: '100%', height: '100%', bgcolor: 'background.paper' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab label={'Total points: ' + historyBoardData.total_points} {...a11yProps(0)} />
+              <TabWithCaption ally={a11yProps(0)} />
               <Tab label="Spend" {...a11yProps(1)} />
               <Tab label="History" {...a11yProps(2)} />
             </Tabs>
@@ -92,7 +78,6 @@ function App() {
         </Box>
       </header>
     </div>
-  </HistoryBoardContext.Provider>
   );
 }
 

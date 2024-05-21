@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { HistoryBoardContext } from './HistoryBoardContext';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,9 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { historyBoard } from './HistoryBoardContext';
+import { useSignals } from '@preact/signals-react/runtime';
 
 export default function HistoryBoard() {
-    const {historyBoardData} = React.useContext(HistoryBoardContext);
+
+    useSignals();
     
     const showDate = (dt) => {
         const dtp = new Date(dt);
@@ -29,7 +31,7 @@ export default function HistoryBoard() {
             </TableRow>
             </TableHead>
             <TableBody>
-            {historyBoardData.history.map((row, index) => (
+            {historyBoard.value.history.map((row, index) => (
                 <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
