@@ -11,9 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 import {historyBoard, updateBoardContext} from './HistoryBoardContext';
-
-const secret = process.env.BONUS_REWARD_SECRET ?? "";
-const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
+import processEnv from './envargs';
 
 export default function BonusPointsBoard() {
 
@@ -27,23 +25,23 @@ export default function BonusPointsBoard() {
     const doReward = () => {
         setPromptDialogOpened(false);
 
-        if (secret.length > 0) {
+        if (processEnv.secret.length > 0) {
             let promptedSecret = localStorage.getItem("bonus-points-secret");
             if (promptedSecret === null) {
                 promptedSecret = secretInForms;
             }
 
-            if (secret !== promptedSecret) {
+            if (processEnv.secret !== promptedSecret) {
                 setSnackBarMessage("You actually don't know the secret, right?");
                 setSnackBarOpened(true);
                 localStorage.removeItem("bonus-points-secret");
                 return;
             }
-            localStorage.setItem("bonus-points-secret", secret);
+            localStorage.setItem("bonus-points-secret", processEnv.secret);
         }
         try {
             const data = {"name": activityName, "amount": parseInt(activityPoints), "limits": {}};
-            axios.post(server + '/addpoints', data, {
+            axios.post(processEnv.server + '/addpoints', data, {
                 headers: {
                   'Content-Type': 'application/json',
                 },
@@ -60,7 +58,7 @@ export default function BonusPointsBoard() {
 };
 
     const needSecret = () => {
-        if (secret.length === 0)
+        if (processEnv.secret.length === 0)
             return false;
         if (localStorage.getItem("bonus-points-secret") !== null)
             return false; //already authenticated

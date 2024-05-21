@@ -13,8 +13,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { historyBoard, updateBoardContext } from './HistoryBoardContext';
 import { useSignals } from '@preact/signals-react/runtime';
-
-const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
+import processEnv from './envargs';
 
 export default function Spend() {
 
@@ -40,7 +39,7 @@ export default function Spend() {
             setPromptOpen(false);
 
             const data = {"amount": actAmount, "name": act};
-            const response = await axios.post(server + '/spend', data, {
+            const response = await axios.post(processEnv.server + '/spend', data, {
                 headers: {
                   'Content-Type': 'application/json',
                 },
