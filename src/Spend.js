@@ -13,6 +13,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { historyBoard, updateBoardContext } from './HistoryBoardContext';
 import { useSignals } from '@preact/signals-react/runtime';
+import Snackbar from '@mui/material/Snackbar';
 import processEnv from './envargs';
 
 export default function Spend() {
@@ -23,6 +24,7 @@ export default function Spend() {
     const [open, setOpen] = React.useState(false);
     const [promptOpen, setPromptOpen] = React.useState(false);
     const [alertMsg, setAlertMsg] = React.useState("");
+    const [snackBarOpened, setSnackBarOpened] = React.useState(false);
     
     const setSpendActivity = (amount, desc) => {
         setAct(desc);
@@ -52,6 +54,7 @@ export default function Spend() {
                 // update history
                 const h = await updateBoardContext();
                 historyBoard.value = h;
+                setSnackBarOpened(true);
             }
     
             return response.data;
@@ -144,7 +147,12 @@ export default function Spend() {
           <Button onClick={doSpend}> OK</Button>
         </DialogActions>
       </Dialog>
-
+      <Snackbar
+                open={snackBarOpened}
+                onClose={() => setSnackBarOpened(false)}
+                autoHideDuration={5000}
+                message={"Successfully spent " + actAmount + " points"}
+            />
     </Box>
     );
 }

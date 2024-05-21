@@ -49,6 +49,8 @@ export default function BonusPointsBoard() {
                 if (res.data.success) {
                     updateBoardContext().then(newHist => {
                         historyBoard.value = newHist;
+                        setSnackBarMessage("Successfully rewarded " + activityPoints + " points");
+                        setSnackBarOpened(true);
                     })    
                 }    
               });    
