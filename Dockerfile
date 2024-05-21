@@ -5,6 +5,7 @@ WORKDIR /src
 COPY . .
 
 RUN echo "REACT_APP_BACKEND=" > /src/.env
+RUN echo "BONUS_REWARD_SECRET=KPm8mWqkAN3uPT" >> /src/.env
 RUN npm ci
 RUN npm run build
 
