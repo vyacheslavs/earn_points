@@ -8,7 +8,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Spend from './Spend.js';
-import { useSignals } from '@preact/signals-react/runtime';
+import TabWithCaption from './TabWithCaption.js';
 
 updateBoardContext().then(data => historyBoard.value = data);
 
@@ -46,10 +46,7 @@ function a11yProps(index) {
 }
 
 function App() {
-
-  useSignals();
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -60,7 +57,7 @@ function App() {
         <Box sx={{ width: '100%', height: '100%', bgcolor: 'background.paper' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab label={'Total points: ' + historyBoard.value.total_points} {...a11yProps(0)} />
+              <TabWithCaption ally={a11yProps(0)} />
               <Tab label="Spend" {...a11yProps(1)} />
               <Tab label="History" {...a11yProps(2)} />
             </Tabs>
