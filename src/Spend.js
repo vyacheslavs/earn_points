@@ -11,18 +11,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { HistoryBoardContext, updateBoardContext } from './HistoryBoardContext';
+import { historyBoard, updateBoardContext } from './HistoryBoardContext';
+import { useSignals } from '@preact/signals-react/runtime';
 
 const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
 
 export default function Spend() {
 
+    useSignals();
     const [act, setAct] = React.useState("Friend come over");
     const [actAmount, setActAmount] = React.useState(50);
     const [open, setOpen] = React.useState(false);
     const [promptOpen, setPromptOpen] = React.useState(false);
     const [alertMsg, setAlertMsg] = React.useState("");
-    const {setHistoryBoardData} = React.useContext(HistoryBoardContext);
     
     const setSpendActivity = (amount, desc) => {
         setAct(desc);
@@ -51,7 +52,7 @@ export default function Spend() {
             } else {
                 // update history
                 const h = await updateBoardContext();
-                setHistoryBoardData(h);
+                historyBoard.value = h;
             }
     
             return response.data;
