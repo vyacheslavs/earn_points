@@ -33,7 +33,7 @@ export default function BonusPointsBoard() {
                 promptedSecret = secretInForms;
             }
 
-            if (secret != promptedSecret) {
+            if (secret !== promptedSecret) {
                 setSnackBarMessage("You actually don't know the secret, right?");
                 setSnackBarOpened(true);
                 localStorage.removeItem("bonus-points-secret");
@@ -60,7 +60,7 @@ export default function BonusPointsBoard() {
 };
 
     const needSecret = () => {
-        if (secret.length == 0)
+        if (secret.length === 0)
             return false;
         if (localStorage.getItem("bonus-points-secret") !== null)
             return false; //already authenticated
