@@ -16,9 +16,9 @@ import axios from 'axios';
 import sha256 from 'js-sha256';
 import {historyBoard, updateBoardContext} from './HistoryBoardContext';
 import { useSignals } from '@preact/signals-react/runtime';
+import processEnv from './envargs';
 
 library.add(fas)
-const server = process.env.REACT_APP_BACKEND ?? "http://localhost:3001";
 
 export default function Activity({activity_data}) {
 
@@ -52,7 +52,7 @@ export default function Activity({activity_data}) {
         const limit_hash = sha256(JSON.stringify(limit_val));
 
         try {
-            const response = await axios.get(server + '/limithits/' + limit_hash, {
+            const response = await axios.get(processEnv.server + '/limithits/' + limit_hash, {
                 headers: {
                   'Content-Type': 'application/json',
                 },
@@ -110,7 +110,7 @@ export default function Activity({activity_data}) {
             const data = {"name": activity_data.name, "amount": activity_data.amount, "limits": activeLimit};
 
             // now find current limit
-            const response = await axios.post(server + '/addpoints', data, {
+            const response = await axios.post(processEnv.server + '/addpoints', data, {
               headers: {
                 'Content-Type': 'application/json',
               },
