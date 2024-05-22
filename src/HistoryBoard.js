@@ -20,8 +20,8 @@ export default function HistoryBoard() {
 
     return (
     <div className='historyboard'>
-        <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableContainer component={Paper} style={{maxHeight:'40rem'}}>
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="simple table">
             <TableHead>
             <TableRow>
                 <TableCell>Date</TableCell>

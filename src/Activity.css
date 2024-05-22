@@ -38,11 +38,15 @@
 
 .activity .help {
     position: relative;
-    top: -3rem;
-    left: -5rem;
+    top: -4.5rem;
+    left: -6.5rem;
     display: inline-block;
 }
 
 .activity.enabled .help svg{
     color: green;
+}
+
+.activity .help .MuiIconButton-root {
+    background-color: rgba(196, 234, 255, 0.3)
 }
