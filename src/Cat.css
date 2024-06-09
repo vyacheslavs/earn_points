@@ -1,0 +1,42 @@
+.tooltip {
+    height: 10em;
+    width: 34em;
+    background: #08b9ff;
+    position: relative;
+    cursor:pointer;
+    border:3px double black;
+    border-radius:10px;
+    padding: 0.5em;
+    text-align: left;
+}
+.tooltip:before {
+    content: "";
+    position: absolute;
+    top: -webkit-calc(100% - 0.2em); /*may require prefix for old browser support*/
+    top: calc(100% - 0.2em); /*i.e. half the height*/
+    right: 0.7em;
+    height: 0.5em;
+    width: 0.5em;
+    background: #08b9ff;
+    transform: rotate(45deg);
+    border-bottom:inherit;
+    border-right:inherit;
+    box-shadow:inherit;
+  }
+
+.tooltip_container {
+    position: relative;
+    top: -20em;
+    right: 2em;
+    width: 2em;
+}
+
+.cat-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 10em;
+    width: 40em;
+    padding: 10px;
+    z-index: 20;
+}
