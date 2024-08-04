@@ -48,7 +48,7 @@ export default function Activity({activity_data}) {
             return true;
 
         // check hits
-        const limit_val = {"limits": activeLimit,  "day": new Date().toISOString().slice(0, 10), "name": activity_data.name};
+        const limit_val = {"limits": activeLimit,  "day": new Date().toLocaleDateString(), "name": activity_data.name};
         const limit_hash = sha256(JSON.stringify(limit_val));
 
         try {
