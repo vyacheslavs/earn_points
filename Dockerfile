@@ -17,6 +17,9 @@ RUN npm run build
 
 FROM node:${NODE_VERSION}
 
+RUN apk add --no-cache tzdata
+ENV TZ=America/Toronto
+
 RUN mkdir -p /app/www
 RUN mkdir -p /app/data
 
